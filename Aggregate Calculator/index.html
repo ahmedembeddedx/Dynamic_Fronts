@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an Account</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script>
+        function calculateAggregate() {
+            // Get input values
+            var IMarks = parseInt(document.getElementById('IMarks').value);
+            var ITMarks = parseInt(document.getElementById('ITMarks').value);
+            var MMarks = parseInt(document.getElementById('MMarks').value);
+            var TMarks = parseInt(document.getElementById('TMarks').value);
+    
+            // Check if any field is empty
+            if (!IMarks || !ITMarks || !MMarks || !TMarks) {
+                alert("Please fill in all fields.");
+                return;
+            }
+    
+            // Check if Inter marks exceed 1100 or below 495
+            if (IMarks > 1100 || IMarks < 495) {
+                alert("Intermediate marks must be between 495 and 1100.");
+                return;
+            }
+    
+            // Calculate Inter Percentage and Matric Percentage
+            var InterPercentage = (IMarks / ITMarks) * 100;
+            var MatricPercentage = (MMarks / TMarks) * 100;
+    
+            // Check if admission is possible
+            if (InterPercentage < 50 || MatricPercentage < 50) {
+                alert("Admission not possible. Inter or Matric percentage is below 50%.");
+                return;
+            }
+    
+            // Calculate aggregate
+            var aggregate = (100 - (40 * (InterPercentage / 100) + 10 * (MatricPercentage / 100)));
+    
+            // Display aggregates
+            document.getElementById('InterAggregate').innerText = aggregate + "%";
+        }
+    </script>    
+</head>
+
+<body>
+    
+    <br>
+    <h1 style="text-align: center;">FAST Aggregate Calculator</h1>
+    <br>
+
+    <div class="main_form">
+        <form action="#">
+            <p style="color: red; font-size: 10px;">(If awaiting 2nd year results use 1st year marks)</p>            
+            <label for="IMarks">Intermediate Marks:  </label>
+            <input type="text" id="IMarks" placeholder="778">
+            <br>
+            <br>
+            
+            <label for="ITMarks">Total Marks in Inter:  </label>
+            <input type="text" id="ITMarks" placeholder="1100">
+            <br>
+            <br>
+
+            <label for="MMarks">Matric Marks:  </label>
+            <input type="text" id="MMarks" placeholder="778">
+            <br>
+            <br>
+            
+            <label for="TMarks">Total Marks in Matric:  </label>
+            <input type="text" id="TMarks" placeholder="1100">
+            <br>
+            <br>
+            <button type="button" onclick="calculateAggregate()">
+                CALCULATE
+            </button>
+
+            <br>
+            <br>
+
+            <div id="result">
+                <p>Numbers Needed in NU Test:  <span id="InterAggregate"></span></p>
+            </div>
+        </form>    
+    </div>
+
+</body>
+</html>
